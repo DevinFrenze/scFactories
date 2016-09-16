@@ -25,17 +25,17 @@ s.boot;
   ];
 
   ~filterFrequencyEnvelopes = Dictionary[
-    \adsr  -> {| freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, peak = 20000, freq_curve = 'lin', bias = 440 |
-      Env.adsr(freq_attack, freq_decay, freq_sustain, freq_release, peak, freq_curve, bias)
+    \adsr  -> {| freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
+      Env.adsr(freq_attack, freq_decay, freq_sustain, freq_release, freq_peak, freq_curve, freq_bias)
     },
-    \dadsr  -> {| freq_delay = 0, freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, peak = 20000, freq_curve = 'lin', bias = 440 |
-      Env.dadsr(freq_delay, freq_attack, freq_decay, freq_sustain, freq_release, peak, freq_curve, bias)
+    \dadsr  -> {| freq_delay = 0, freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
+      Env.dadsr(freq_delay, freq_attack, freq_decay, freq_sustain, freq_release, freq_peak, freq_curve, freq_bias)
     },
-    \asr  -> {| freq_attack = 0.01, freq_sustain = 0.1, freq_release = 0.1, peak = 20000, freq_curve = 'lin', bias = 440 |
-      Env.asr(freq_attack, freq_sustain, freq_release, freq_curve) * (peak - bias) + bias
+    \asr  -> {| freq_attack = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
+      Env.asr(freq_attack, freq_sustain, freq_release, freq_curve) * (freq_peak - freq_bias) + freq_bias
     },
-    \cutoff  -> {| freq_release = 0.1, peak = 20000, freq_curve = 'lin', bias = 440 |
-      Env.cutoff(freq_release, curve: freq_curve) * (peak - bias) + bias
+    \cutoff  -> {| freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
+      Env.cutoff(freq_release, curve: freq_curve) * (freq_peak - freq_bias) + freq_bias
     }
   ];
 

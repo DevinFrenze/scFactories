@@ -44,22 +44,11 @@ p.stop;
 (
 p = Pbind(
   \instrument, \a,
-  \degree, Pseries(0, 1, inf),
+  \midinote, Pseries(60, 1, inf),
   \dur, 0.25,
-  \freq_attack, 0.01,
+  \freq_attack, 0.11,
   \freq_decay, 0.05,
-  \peak, 4000,
-  \bias, Pkey(\degree),
+  // \freq_peak, midicps(Pkey(\midinote) + 65),
+  \freq_bias, midicps(Pkey(\midinote) + 5),
 ).play; 
 )
-
-(
-p = Pmono(
-  \a,
-  \degree, Pseries(0, 1, inf),
-  \dur, 0.25
-).play; 
-)
-
-x = Synth(\a);
-x.set(\gate, 0);
