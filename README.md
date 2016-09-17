@@ -1,9 +1,9 @@
 # SuperCollider Factory Workflow
 
-Trying to improve my SuperCollider workflow so that when it comes time to write
-music I do less instrument building and more experimenting. The intended
-workflow consists of a dictionaries, synth factories, and pattern /
-midi utilities.
+Trying to improve my [SuperCollider](http://supercollider.github.io/) workflow
+so that when it comes time to write music I do less instrument building and more
+experimenting. The intended workflow consists of a dictionaries, synth
+factories, and pattern / midi utilities.
 
 ## Dictionaries
 
