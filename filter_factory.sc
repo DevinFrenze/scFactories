@@ -15,8 +15,7 @@
   };
 
   ~filterEnvelopeFactoryFunction = { | carrier, envelope, filter |
-    { | amp = 0.1, gate = 1 |
-      var env = amp * EnvGen.ar(SynthDef.wrap(~envelopes.at(envelope)), gate, doneAction: 2),
+    { var env = SynthDef.wrap(~envelopeFactoryFunction.(envelope)),
           signal = SynthDef.wrap(~carriers.at(carrier)),
           filter_freq = EnvGen.ar(SynthDef.wrap(~filterFrequencyEnvelopes.at(\adsr)), gate);
       SynthDef.wrap(~filters.at(filter), [], [signal * env, filter_freq]);

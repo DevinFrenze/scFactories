@@ -24,6 +24,13 @@ s.boot;
     }
   ];
 
+  ~envelopeFactoryFunction = { | envelope = \adsr |
+    { | gate = 1, doneAction = 2 |
+      var env = EnvGen.ar(SynthDef.wrap(~envelopes.at(envelope)), gate, doneAction: doneAction);
+      env;
+    };
+  };
+
   ~filterFrequencyEnvelopes = Dictionary[
     \adsr  -> {| freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
       Env.adsr(freq_attack, freq_decay, freq_sustain, freq_release, freq_peak, freq_curve, freq_bias)
@@ -39,9 +46,16 @@ s.boot;
     }
   ];
 
+  ~filterEnvelopeFactoryFunction = { | envelope = \adsr |
+    { | gate = 1, doneAction = 0 |
+      var env = EnvGen.ar(SynthDef.wrap(~filterEnvelopes.at(envelope)), gate, doneAction: doneAction);
+      env;
+    };
+  };
+
   ~outputs = Dictionary[
-    \stereo -> { | signal, out = 0 | Out.ar(out, signal ! 2) },
-    \mono   -> { | signal, out = 0 | Out.ar(out, signal) },
+    \stereo -> { | signal, out = 0, amp = 0.1 | Out.ar(out, (signal * amp) ! 2) },
+    \mono   -> { | signal, out = 0, amp = 0.1 | Out.ar(out, signal * amp) },
   ];
 
   ~filters = Dictionary[

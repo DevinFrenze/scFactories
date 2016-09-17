@@ -8,10 +8,15 @@
  */
 
 ( // must run the dictionaries.sc script first
+  ~envelopeFactoryFunction = { | envelope = \adsr |
+    { | gate = 1, doneAction = 2 |
+      var env = EnvGen.ar(SynthDef.wrap(~envelopes.at(envelope)), gate, doneAction: doneAction);
+      env;
+    };
+  };
 
   ~factoryFunction = { | carrier, envelope |
-    { | amp = 0.1, gate = 1 |
-      var env = amp * EnvGen.ar(SynthDef.wrap(~envelopes.at(envelope)), gate, doneAction: 2),
+    { var env = SynthDef.wrap(~envelopeFactoryFunction.(envelope)),
           signal = SynthDef.wrap(~carriers.at(carrier));
       signal * env;
     };
