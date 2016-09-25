@@ -59,9 +59,11 @@ s.boot;
   ];
 
   ~filters = Dictionary[
-    \lpf -> {| in, filter_freq = 440 | LPF.ar(in, filter_freq) },
-    \hpf -> {| in, filter_freq = 440 | HPF.ar(in, filter_freq) },
-    \bpf -> {| in, filter_freq = 440, rq = 1 | BPF.ar(in, filter_freq, rq) },
-    \brf -> {| in, filter_freq = 440, rq = 1 | BRF.ar(in, filter_freq, rq) }
+    \lpf -> {| in, filter_freq = 440 | LPF.ar(in, filter_freq.clip(0, 20000)) },
+    \hpf -> {| in, filter_freq = 440 | HPF.ar(in, filter_freq.clip(0, 20000)) },
+    \bpf -> {| in, filter_freq = 440, rq = 1 | BPF.ar(in, filter_freq.clip(0, 20000), rq) },
+    \brf -> {| in, filter_freq = 440, rq = 1 | BRF.ar(in, filter_freq.clip(0, 20000), rq) }
   ];
+
+  "successfully initialized dictionaries";
 )

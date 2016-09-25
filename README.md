@@ -40,6 +40,9 @@ as functions that handle whether a synth should be played as monophonic,
 duophonic, or multiphonic, or whether it should have lowest-note-priority,
 highest-note-priority, last-note-priority, or first-note-priority.
 
+[Here](http://distractionandnonsense.com/sc/A_Practical_Guide_to_Patterns.pdf)
+is a good pattern reference.
+
 ### Also
 It would be nice to include a standard start file and probably other things will
 come up that will be nice to include. If you're reading this and you're on

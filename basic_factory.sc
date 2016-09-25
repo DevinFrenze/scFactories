@@ -1,5 +1,3 @@
-// http://distractionandnonsense.com/sc/A_Practical_Guide_to_Patterns.pdf
-
 /*
  * in synth definitions, use gate instead of dur
  * when using a synth in a pattern, supply dur instead of gate
