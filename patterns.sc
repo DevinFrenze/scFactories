@@ -9,7 +9,7 @@
   var rhythm, part1, part2, parts, instrument1, instrument2, kick;
 
   rhythm = Pbind(
-    \tempo, Pgeom(8, 0.99, inf),
+    \tempo, 2.4,
     \dur, 0.2,
     \delta, Pseq([1, 0.5, 0.25, Pn(0.75, 3)], inf),
 

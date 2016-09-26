@@ -33,5 +33,6 @@ midicps(36); // C, 65.4hz, highest valid freq for kick ?
     \dur, 0.3,
     \delta, 1,
     \sustain_level, 1,
+    \amp, 0.5,
   ).play();
 )
