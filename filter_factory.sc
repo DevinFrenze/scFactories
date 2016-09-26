@@ -29,6 +29,8 @@
       SynthDef.wrap(~outputs.at(\stereo), [], [signal]);
     }).add;
   };
+
+  "successfully initialized fitler factories";
 )
 
 
