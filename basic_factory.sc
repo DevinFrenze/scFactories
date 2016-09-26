@@ -42,6 +42,15 @@ p.stop;
 p = Pbind(
   \instrument, \a,
   \freq, 880,
+  \dur, 0.25,
+  \delta, 0.5,
+).play; 
+)
+
+(
+p = Pbind(
+  \instrument, \a,
+  \freq, 880,
   \dur, 0.25
 ).play; 
 
