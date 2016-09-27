@@ -8,6 +8,13 @@ s.boot;
     \blip   -> {| freq = 400, numHarmonics = 200 | Blip.ar(freq, numHarmonics) }
   ];
 
+  ~modulators = Dictionary[
+    \sine  -> {| freq, range, offset, phase = 0 | SinOsc.ar(freq, phase, range, offset); },
+    \pulse -> {| freq, range, offset, pulse_width = 0.5 | LFPulse.ar(freq, 0, pulse_width, range, offset); },
+    \saw   -> {| freq, range, offset | LFSaw.ar(freq, 0, range, offset); },
+    \blip  -> {| freq, range, offset, numHarmonics = 200 | Blip.ar(freq, numHarmonics, range, offset); }
+  ];
+
   // need to use sustained envelopes because of the way we're using gate
   ~envelopes = Dictionary[
     \adsr  -> {| attack = 0.01, decay = 0.01, sustain_level = 0.1, release = 0.1, curve = 'lin' |

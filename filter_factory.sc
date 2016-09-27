@@ -30,7 +30,7 @@
     }).add;
   };
 
-  "successfully initialized fitler factories";
+  "successfully initialized filter factories";
 )
 
 
@@ -47,10 +47,12 @@ p.stop;
 p = Pbind(
   \instrument, \a,
   \midinote, Pseries(60, 1, inf),
-  \dur, 0.25,
+  \dur, 0.15,
+  \delta, 0.25,
   \freq_attack, 0.11,
   \freq_decay, 0.05,
   // \freq_peak, midicps(Pkey(\midinote) + 65),
   \freq_bias, midicps(Pkey(\midinote) + 5),
+  \amp, 2,
 ).play; 
 )

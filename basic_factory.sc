@@ -6,13 +6,6 @@
  */
 
 ( // must run the dictionaries.sc script first
-  ~envelopeFactoryFunction = { | envelope = \adsr |
-    { | gate = 1, doneAction = 2 |
-      var env = EnvGen.ar(SynthDef.wrap(~envelopes.at(envelope)), gate, doneAction: doneAction);
-      env;
-    };
-  };
-
   ~factoryFunction = { | carrier, envelope |
     { var env = SynthDef.wrap(~envelopeFactoryFunction.(envelope)),
           signal = SynthDef.wrap(~carriers.at(carrier));
@@ -43,7 +36,8 @@ p = Pbind(
   \instrument, \a,
   \freq, 880,
   \dur, 0.25,
-  \delta, 0.5,
+  \delta, 1,
+  \amp, 0.8,
 ).play; 
 )
 

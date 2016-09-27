@@ -29,10 +29,10 @@ midicps(36); // C, 65.4hz, highest valid freq for kick ?
     \instrument, \kick,
     \midinote, 30,
     \freq_peak, midicps(Pkey(\midinote) + 24),
-    \tempo, 1,
+    \tempo, 2,
     \dur, 0.3,
     \delta, 1,
     \sustain_level, 1,
-    \amp, 0.5,
+    \amp, 1,
   ).play();
 )
