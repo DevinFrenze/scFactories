@@ -39,17 +39,17 @@ s.boot;
   };
 
   ~filterFrequencyEnvelopes = Dictionary[
-    \adsr  -> {| freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
-      Env.adsr(freq_attack, freq_decay, freq_sustain, freq_release, freq_peak, freq_curve, freq_bias)
+    \adsr  -> {| filter_attack = 0.01, filter_decay = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+      Env.adsr(filter_attack, filter_decay, filter_sustain, filter_release, filter_peak, filter_curve, filter_bias)
     },
-    \dadsr  -> {| freq_delay = 0, freq_attack = 0.01, freq_decay = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
-      Env.dadsr(freq_delay, freq_attack, freq_decay, freq_sustain, freq_release, freq_peak, freq_curve, freq_bias)
+    \dadsr  -> {| filter_delay = 0, filter_attack = 0.01, filter_decay = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+      Env.dadsr(filter_delay, filter_attack, filter_decay, filter_sustain, filter_release, filter_peak, filter_curve, filter_bias)
     },
-    \asr  -> {| freq_attack = 0.01, freq_sustain = 0.1, freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
-      Env.asr(freq_attack, freq_sustain, freq_release, freq_curve) * (freq_peak - freq_bias) + freq_bias
+    \asr  -> {| filter_attack = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+      Env.asr(filter_attack, filter_sustain, filter_release, filter_curve) * (filter_peak - filter_bias) + filter_bias
     },
-    \cutoff  -> {| freq_release = 0.1, freq_peak = 20000, freq_curve = 'lin', freq_bias = 440 |
-      Env.cutoff(freq_release, curve: freq_curve) * (freq_peak - freq_bias) + freq_bias
+    \cutoff  -> {| filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+      Env.cutoff(filter_release, curve: filter_curve) * (filter_peak - filter_bias) + filter_bias
     }
   ];
 
