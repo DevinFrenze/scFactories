@@ -39,16 +39,16 @@ s.boot;
   };
 
   ~filterFrequencyEnvelopes = Dictionary[
-    \adsr  -> {| filter_attack = 0.01, filter_decay = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+    \adsr  -> {| filter_bias = 440, filter_attack = 0.01, filter_decay = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin' |
       Env.adsr(filter_attack, filter_decay, filter_sustain, filter_release, filter_peak, filter_curve, filter_bias)
     },
-    \dadsr  -> {| filter_delay = 0, filter_attack = 0.01, filter_decay = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+    \dadsr  -> {| filter_bias = 440, filter_delay = 0, filter_attack = 0.01, filter_decay = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin' |
       Env.dadsr(filter_delay, filter_attack, filter_decay, filter_sustain, filter_release, filter_peak, filter_curve, filter_bias)
     },
-    \asr  -> {| filter_attack = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+    \asr  -> {| filter_bias = 440, filter_attack = 0.01, filter_sustain = 0.1, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin' |
       Env.asr(filter_attack, filter_sustain, filter_release, filter_curve) * (filter_peak - filter_bias) + filter_bias
     },
-    \cutoff  -> {| filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin', filter_bias = 440 |
+    \cutoff  -> {| filter_bias = 440, filter_release = 0.1, filter_peak = 20000, filter_curve = 'lin' |
       Env.cutoff(filter_release, curve: filter_curve) * (filter_peak - filter_bias) + filter_bias
     }
   ];
@@ -84,11 +84,29 @@ s.boot;
   ];
 
   ~filters = Dictionary[
-    \lpf -> {| in, filter_freq = 440 | LPF.ar(in, filter_freq.clip(0, 20000)) },
-    \hpf -> {| in, filter_freq = 440 | HPF.ar(in, filter_freq.clip(0, 20000)) },
-    \bpf -> {| in, filter_freq = 440, rq = 1 | BPF.ar(in, filter_freq.clip(0, 20000), rq) },
-    \brf -> {| in, filter_freq = 440, rq = 1 | BRF.ar(in, filter_freq.clip(0, 20000), rq) }
+    \lpf  -> {| in, filter_freq = 440 | LPF.ar(in, filter_freq.clip(0, 20000)) },
+    \hpf  -> {| in, filter_freq = 440 | HPF.ar(in, filter_freq.clip(0, 20000)) },
+    \rlpf -> {| in, filter_freq = 440, rq = 1 | RLPF.ar(in, filter_freq.clip(0, 20000), rq) },
+    \rhpf -> {| in, filter_freq = 440, rq = 1 | RHPF.ar(in, filter_freq.clip(0, 20000), rq) },
+    \bpf  -> {| in, filter_freq = 440, rq = 1 | BPF.ar(in, filter_freq.clip(0, 20000), rq) },
+    \brf  -> {| in, filter_freq = 440, rq = 1 | BRF.ar(in, filter_freq.clip(0, 20000), rq) }
   ];
+
+  ~fmFactoryFunction = { | fm_layers, carrier, modulator |
+    { | freq = 440, fm_ratio = 1, fm_beta = 0|
+      var mod = freq, signal;
+
+      fm_layers.do {
+        mod = (~modulators.at(modulator)).(
+          mod,
+          mod * fm_ratio * fm_beta,
+          mod * fm_ratio
+        );
+      };
+
+      signal = SynthDef.wrap(~carriers.at(carrier), [], [mod]);
+    };
+  }; 
 
   "successfully initialized dictionaries";
 )
