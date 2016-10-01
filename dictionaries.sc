@@ -15,6 +15,20 @@ s.boot;
     \blip  -> {| freq, range, offset, numHarmonics = 200 | Blip.ar(freq, numHarmonics, range, offset); }
   ];
 
+  ~ampLfoModulator = { | modulator = \sine |
+    { | amp, amp_lfo_freq = 2, amp_lfo_range = 0, amp_lfo_option |
+      var signal = SynthDef.wrap(~modulators.at(modulator), [], [amp_lfo_freq, amp_lfo_range * amp, amp, amp_lfo_option]);
+      signal;
+    }
+  };
+
+  ~freqLfoModulator = { | modulator = \sine |
+    { | freq, freq_lfo_freq = 2, freq_lfo_range = 0, freq_lfo_option |
+      var signal = SynthDef.wrap(~modulators.at(modulator), [], [freq_lfo_freq, freq_lfo_range * freq, freq, freq_lfo_option]);
+      signal;
+    }
+  };
+
   // need to use sustained envelopes because of the way we're using gate
   ~envelopes = Dictionary[
     \adsr  -> {| attack = 0.01, decay = 0.01, sustain_level = 0.1, release = 0.1, curve = 'lin' |
@@ -79,8 +93,8 @@ s.boot;
   };
 
   ~outputs = Dictionary[
-    \stereo -> { | signal, out = 0, amp = 0.1 | Out.ar(out, (signal * amp) ! 2) },
-    \mono   -> { | signal, out = 0, amp = 0.1 | Out.ar(out, signal * amp) },
+    \stereo -> { | signal, amp = 0.1, out = 0 | Out.ar(out, (signal * amp) ! 2) },
+    \mono   -> { | signal, amp = 0.1, out = 0 | Out.ar(out, signal * amp) },
   ];
 
   ~filters = Dictionary[
